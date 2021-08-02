@@ -19,11 +19,10 @@ export class AssessmentService {
       // Choose the correct method, url, and data to send
       // in a request to the express OCAT/server/routes/Assessment/index.js
       // NOTE: the http.config file automatically adds /api to the front of your url
-      return Axios.METHOD(`/some-url`, {
-        params: {
-        },
+      return Axios.get(`/assessment/list`, {
+        params: { },
       })
-        .then(response => response.data.data.assessment);
+        .then(response => response.data.assessments);
     }
     catch (err) {
       throw new Error(`${err.response.statusText} - ${err.response.data.message}`);
