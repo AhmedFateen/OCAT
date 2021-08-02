@@ -12,10 +12,14 @@ router.post(`/submit`, (req, res, next) => {
   }
 });
 
-router.get(`/list`, (req, res, next) => {
+router.get(`/list`, async (req, res, next) => {
   try {
     // call the getList function from the server/libs/AssessmentService
     // return assessments to front-end
+    const assessments = await AssessmentService.getList();
+    res
+      .status(200)
+      .json({ assessments });
   } catch (error) {
     next(error);
   }
