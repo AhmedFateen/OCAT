@@ -27,4 +27,13 @@ const Assessments = bookshelf.Model.extend({
   tableName: `assessments`,
 });
 
+const LoginData = bookshelf.Model.extend({
+  tableName: `test_data`,
+});
+const Users = bookshelf.Model.extend({
+  tableName: `users`,
+});
+
 exports.Assessments = Assessments;
+exports.LoginData = LoginData;
+exports.Users = Users;

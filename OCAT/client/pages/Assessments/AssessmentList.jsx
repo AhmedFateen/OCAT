@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Table } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 import { useTable } from 'react-table';
 import { AssessmentService } from '../../services/AssessmentService';
 export const AssessmentList = () => {
@@ -68,7 +68,7 @@ export const AssessmentList = () => {
             return (
               <tr {...row.getRowProps()}>
                 {row.cells.map(cell => <td {...cell.getCellProps()}>{cell.render(`Cell`)}</td>)}
-              </tr>
+                <td><Button type="button">Delete</Button></td></tr>
             );
           })}
         </tbody>
