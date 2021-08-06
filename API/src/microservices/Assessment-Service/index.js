@@ -29,5 +29,4 @@ exports.getList = () =>
 
 exports.deleteSoft = (id) => {
   Assessments.where(`id`, id).destroy();
-  console.log(`should be soft deleted`);
 };

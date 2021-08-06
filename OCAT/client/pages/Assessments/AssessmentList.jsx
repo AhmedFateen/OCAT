@@ -48,7 +48,6 @@ export const AssessmentList = () => {
     [],
   );
   function onDeleteClick(row) {
-    console.log(row?.original);
     document.getElementById(row.original.id).remove();
     AssessmentService.deleteSoft(row.original.id);
   }

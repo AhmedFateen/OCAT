@@ -5,7 +5,6 @@ import { DashboardBulletin } from './pages/Dashboard/DashboardBulletin';
 import { NewAssessment } from './pages/Assessments/NewAssessment.jsx';
 import { AssessmentList } from './pages/Assessments/AssessmentList';
 import { Login } from './pages/Login';
-import { Signup } from './pages/Signup';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import auth from './auth';
@@ -38,6 +37,5 @@ export const App = () => <SiteWrapper>
     <Route path="/assessment/new" component={NewAssessment} />
     <ProtectedRoute path="/assessment/list" component={AssessmentList} />
     <Route path="/assessment/login" component={Login} />
-    <Route path="/assessment/signup" component={Signup} />
   </BrowserRouter>
 </SiteWrapper>;

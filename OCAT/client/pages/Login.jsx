@@ -20,7 +20,6 @@ export const Login = (props) => {
         });
         break;
       default:
-        console.log(`unexpected`);
     }
 
   };
