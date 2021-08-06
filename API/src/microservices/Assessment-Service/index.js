@@ -26,3 +26,8 @@ exports.getList = () =>
   // the assessment data from the PostgreSQL database
   Assessments.fetchAll().then((resData) =>
     resData.serialize());
+
+exports.deleteSoft = (id) => {
+  Assessments.where(`id`, id).destroy();
+  console.log(`should be soft deleted`);
+};

@@ -25,6 +25,9 @@ bookshelf.plugin(require(`bookshelf-soft-delete`));
 
 const Assessments = bookshelf.Model.extend({
   tableName: `assessments`,
+
+  soft: [ `deleted_at` ],
+
 });
 
 const LoginData = bookshelf.Model.extend({

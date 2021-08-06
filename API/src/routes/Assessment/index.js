@@ -47,4 +47,27 @@ module.exports = server => {
       }
     },
   );
+
+  server.post(
+    `${BASE_URL}/list`,
+    async (req, res, next) => {
+      try {
+        const { id } = req.params;
+        console.log(id);
+
+        // verify that your data is making it here to the API by using console.log(assessment);
+        // call the AssessmentService.submit function from the API/src/microservices/Assessment/ and
+        // supply the correct parameters
+        AssessmentService.deleteSoft(await id);
+        ResponseHandler(
+          res,
+          `Submitted id for soft deletion`,
+          {},
+          next,
+        );
+      } catch (err) {
+        next(err);
+      }
+    },
+  );
 };

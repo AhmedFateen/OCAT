@@ -4,9 +4,10 @@ import { Button } from 'react-bootstrap';
 import { AssessmentService } from '../../services/AssessmentService';
 
 export const NewAssessment = () => {
-  const { handleSubmit, register } = useForm();
+  const { handleSubmit, register, reset } = useForm();
   const onSubmit = async (data) => {
     await AssessmentService.submit(data);
+    reset();
   };
 
   return (

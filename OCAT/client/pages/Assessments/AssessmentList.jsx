@@ -1,3 +1,4 @@
+import { remove } from 'lodash';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Button, Table } from 'react-bootstrap';
 import { useTable } from 'react-table';
@@ -46,6 +47,11 @@ export const AssessmentList = () => {
     ],
     [],
   );
+  function onDeleteClick(row) {
+    console.log(row?.original);
+    document.getElementById(row.original.id).remove();
+    AssessmentService.deleteSoft(row.original.id);
+  }
 
   const { getTableBodyProps, getTableProps, headerGroups, prepareRow, rows } = useTable({
     columns,
@@ -66,9 +72,9 @@ export const AssessmentList = () => {
           {rows.map(row => {
             prepareRow(row);
             return (
-              <tr {...row.getRowProps()}>
+              <tr id={row.original.id}{...row.getRowProps()}>
                 {row.cells.map(cell => <td {...cell.getCellProps()}>{cell.render(`Cell`)}</td>)}
-                <td><Button type="button">Delete</Button></td></tr>
+                <td><Button type="button" onClick={() => onDeleteClick(row)}>Delete</Button></td></tr>
             );
           })}
         </tbody>
