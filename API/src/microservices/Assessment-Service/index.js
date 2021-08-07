@@ -28,5 +28,5 @@ exports.getList = () =>
     resData.serialize());
 
 exports.deleteSoft = (id) => {
-  Assessments.where(`id`, id).destroy();
+  Assessments.where(`id`, id).save({ deleted_at: new Date() }, { patch: true });
 };
