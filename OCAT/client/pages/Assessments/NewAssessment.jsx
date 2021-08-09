@@ -7,6 +7,7 @@ export const NewAssessment = () => {
   const { handleSubmit, register, reset } = useForm();
   const onSubmit = async (data) => {
     await AssessmentService.submit(data);
+    alert(`Submitted successfully!`);
     reset();
   };
 

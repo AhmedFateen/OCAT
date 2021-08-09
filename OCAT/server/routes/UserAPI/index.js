@@ -1,7 +1,6 @@
 const router = require(`express`).Router();
 const { Users } = require(`../../../../API/src/microservices/Database`);
 const bcrypt = require(`bcrypt`);
-const { UserService } = require(`../../libs`);
 
 router.post(`/login`, async (req, res, next) => {
   try {
@@ -13,6 +12,11 @@ router.post(`/login`, async (req, res, next) => {
       user = user.serialize();
       const validPass = await bcrypt.compare(pass.password, user.hash);
       if (validPass) {
+        if (user.is_supervisor) {
+          res.status(200).json(`You have supervisor powers!`);
+          return;
+        }
+
         res.status(200).json(`Valid username and password!`);
         return;
 
