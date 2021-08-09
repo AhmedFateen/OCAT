@@ -1,4 +1,3 @@
-import { remove } from 'lodash';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Button, Table } from 'react-bootstrap';
 import { useTable } from 'react-table';
