@@ -48,7 +48,10 @@ export const AssessmentList = () => {
     [],
   );
   function onDeleteClick(row) {
-    document.getElementById(row.original.id).remove();
+    // document.getElementById(row.original.id).remove();
+    const dataCopy = [ ...assessments ];
+    dataCopy.splice(row.id, 7);
+    setAssessments(dataCopy);
     AssessmentService.deleteSoft(row.original.id);
   }
 
