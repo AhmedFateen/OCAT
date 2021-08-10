@@ -34,4 +34,4 @@ router.post(`/login`, async (req, res, next) => {
 });
 
 exports.router = router;
-exports.path = `/api/assessment`;
+exports.path = `/api/user`;

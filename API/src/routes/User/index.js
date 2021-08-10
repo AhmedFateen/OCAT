@@ -1,7 +1,7 @@
 const { UserService } = require(`../../microservices`);
 const { ResponseHandler } = require(`../../utils`);
 
-const BASE_URL = `/assessment`;
+const BASE_URL = `/user`;
 
 module.exports = server => {
 

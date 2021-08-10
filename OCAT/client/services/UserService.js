@@ -3,7 +3,7 @@ import Axios from '../utils/http.config';
 export class UserService {
   static submit(pass) {
     try {
-      return Axios.post(`assessment/login`, { pass })
+      return Axios.post(`user/login`, { pass })
         .then(response => response.data);
     }
     catch (err) {
