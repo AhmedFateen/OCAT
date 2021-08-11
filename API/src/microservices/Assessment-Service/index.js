@@ -1,7 +1,7 @@
 const Assessment = require(`../../routes/Assessment`);
 const { Assessments } = require(`../Database`);
 
-exports.submit = async (assessment) => {
+exports.submit = (assessment) => {
   // use the bookshelf model Assessments from API/src/microservices/Database to save
   // the assessment data in the PostgreSQL database
   assessment.created_at = new Date();
@@ -19,6 +19,7 @@ exports.submit = async (assessment) => {
     cat_date_of_birth: assessment.CatDateOfBirth,
     created_at: assessment.created_at,
   }).save();
+
 };
 
 exports.getList = () =>
@@ -26,3 +27,7 @@ exports.getList = () =>
   // the assessment data from the PostgreSQL database
   Assessments.fetchAll().then((resData) =>
     resData.serialize());
+
+exports.deleteSoft = (id) => {
+  Assessments.where(`id`, id).save({ deleted_at: new Date() }, { patch: true });
+};

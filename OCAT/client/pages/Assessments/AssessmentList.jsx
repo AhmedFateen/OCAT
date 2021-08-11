@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Table } from 'react-bootstrap';
-import { useTable } from 'react-table';
+import { Button, Table } from 'react-bootstrap';
+import { useSortBy, useTable } from 'react-table';
 import { AssessmentService } from '../../services/AssessmentService';
+import auth from '../../auth';
 export const AssessmentList = () => {
 
   const [ assessments, setAssessments ] = useState([]);
@@ -46,11 +47,52 @@ export const AssessmentList = () => {
     ],
     [],
   );
+  function onDeleteClick(row) {
+    const dataCopy = [ ...assessments ];
+    dataCopy.splice(row.id, Object.keys(row.original).length);
+    setAssessments(dataCopy);
+    AssessmentService.deleteSoft(row.original.id);
+  }
 
   const { getTableBodyProps, getTableProps, headerGroups, prepareRow, rows } = useTable({
     columns,
     data: assessments,
-  });
+  }, useSortBy);
+  if (auth.supervisor)
+  {
+    return (
+      <div>
+
+        <Table striped {...getTableProps()}>
+          <thead>
+            {headerGroups.map(headerGroup =>
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map(column =>
+                  <th {...column.getHeaderProps(column.getSortByToggleProps())}>{column.render(`Header`)}<span>{
+                    column.isSorted ?
+                      column.isSortedDesc ?
+                        ` 🔽` :
+                        ` 🔼` :
+                      ``
+                  }</span></th>)}
+              </tr>)}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {rows.map(row => {
+              prepareRow(row);
+              return (
+                <tr id={row.original.id}{...row.getRowProps()}>
+                  {row.cells.map(cell => <td {...cell.getCellProps()}>{cell.render(`Cell`)}</td>)}
+                  <td><Button type="button" onClick={() => onDeleteClick(row)}>Delete</Button></td></tr>
+              );
+            })}
+          </tbody>
+        </Table>
+      </div>
+
+    );
+  }
+
   return (
     <div>
 
@@ -59,14 +101,20 @@ export const AssessmentList = () => {
           {headerGroups.map(headerGroup =>
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map(column =>
-                <th {...column.getHeaderProps()}>{column.render(`Header`)}</th>)}
+                <th {...column.getHeaderProps(column.getSortByToggleProps())}>{column.render(`Header`)}<span>{
+                  column.isSorted ?
+                    column.isSortedDesc ?
+                      ` 🔽` :
+                      ` 🔼` :
+                    ``
+                }</span></th>)}
             </tr>)}
         </thead>
         <tbody {...getTableBodyProps()}>
           {rows.map(row => {
             prepareRow(row);
             return (
-              <tr {...row.getRowProps()}>
+              <tr id={row.original.id}{...row.getRowProps()}>
                 {row.cells.map(cell => <td {...cell.getCellProps()}>{cell.render(`Cell`)}</td>)}
               </tr>
             );
@@ -76,4 +124,5 @@ export const AssessmentList = () => {
     </div>
 
   );
+
 };

@@ -10,12 +10,11 @@ module.exports = server => {
     async (req, res, next) => {
       try {
         const { assessment } = req.params;
-        console.log(assessment);
 
         // verify that your data is making it here to the API by using console.log(assessment);
         // call the AssessmentService.submit function from the API/src/microservices/Assessment/ and
         // supply the correct parameters
-        AssessmentService.submit(await assessment);
+        AssessmentService.submit(assessment);
         ResponseHandler(
           res,
           `Submitted assessment`,
@@ -40,6 +39,28 @@ module.exports = server => {
           res,
           `Fetched assessments`,
           { assessments },
+          next,
+        );
+      } catch (err) {
+        next(err);
+      }
+    },
+  );
+
+  server.post(
+    `${BASE_URL}/list`,
+    async (req, res, next) => {
+      try {
+        const { id } = req.params;
+
+        // verify that your data is making it here to the API by using console.log(assessment);
+        // call the AssessmentService.submit function from the API/src/microservices/Assessment/ and
+        // supply the correct parameters
+        AssessmentService.deleteSoft(await id);
+        ResponseHandler(
+          res,
+          `Submitted id for soft deletion`,
+          {},
           next,
         );
       } catch (err) {

@@ -28,4 +28,14 @@ export class AssessmentService {
       throw new Error(`${err.response.statusText} - ${err.response.data.message}`);
     }
   }
+
+  static deleteSoft(id) {
+    try {
+      return Axios.post(`/assessment/list`, { id })
+        .then(response => response.data);
+    }
+    catch (err) {
+      throw new Error(`${err.response.statusText} - ${err.response.data.message}`);
+    }
+  }
 }

@@ -5,6 +5,8 @@ router.post(`/submit`, (req, res, next) => {
   try {
     const { assessment } = req.body;
     AssessmentService.submit(assessment);
+    res.status(200).json(`Submitted Successfully`);
+    return;
 
     // call the submit function from the server/libs/AssessmentService
   } catch (error) {
@@ -20,6 +22,17 @@ router.get(`/list`, async (req, res, next) => {
     res
       .status(200)
       .json({ assessments });
+    return;
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.post(`/list`, (req, res, next) => {
+  try {
+    const { id } = req.body;
+    AssessmentService.deleteSoft(id);
+
   } catch (error) {
     next(error);
   }
